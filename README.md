@@ -5,7 +5,7 @@ Roster:
 ### Linda Zheng - Project Manager & Database Management
 <ul>
 <li> Oversee progress on each component and sets the pace for each component. </li>
-<li> Provides any additional help to any component that requires it. </li>P
+<li> Provides any additional help to any component that requires it. </li>
 <li> Work on login interface and database management. </li> 
 <li> Work on CSS for finished component. </li> 
  </ul>
