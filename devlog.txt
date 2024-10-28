@@ -1,0 +1,9 @@
+We changed and clarified some of the components on our breakdown of the project components (Logiin page, view page)
+- we clarified how we would check parameters for the password
+- we fixed some parts we hadn't originally read in the readme, such as viewing a blog
+
+we changed the database breakdown, and added ids in the tables to clarify how things are connected and how we would fetch information from it
+
+we change the site map to include the view page and discuss how the interaction between the login and homepage would work in terms of logging out
+
+we also changed some of the parts in our task delegation as previously we mentioned things that were not in our database, so we added those and also removed certain parts we chose not to include anymore.
