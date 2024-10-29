@@ -11,3 +11,12 @@ Changed the site map to include the view page and discuss how the interaction be
 
 markM -- 2024-10-28
 Changed some of the parts in our task delegation as previously we mentioned things that were not in our database, so we added those and also removed certain parts we chose not to include anymore.
+
+duaB -- 2024-10-29
+Worked on installation instructions in README.md file
+
+lindaZ -- 2024-10-28
+Checked-in with group.
+
+markM -- 2024-10-29
+Worked on installation instructions, launch codes, and added a boilerplate functional app.
