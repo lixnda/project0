@@ -16,7 +16,13 @@ Our project is a simplistic system for a web blog. Features include blog posting
 
 ## Install Guide
 
-Run the following command to install all required modules.
+1.) Open terminal and clone the repository by running:
+```
+$ git clone git@github.com:lixnda/project0.git
+```
+
+2.) Run the following command to install all required modules.
+
 ```
 $ pip install -r requirements.txt
 ```
