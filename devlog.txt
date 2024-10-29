@@ -21,3 +21,6 @@ Checked-in with group.
 markM -- 2024-10-29
 Worked on installation instructions, launch codes, and added a boilerplate functional app.
 Added default code to files
+
+AnkitaS -- 2024-10-29
+worked on adding default code to html files
