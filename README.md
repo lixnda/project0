@@ -27,15 +27,15 @@ $ git clone git@github.com:lixnda/project0.git
 ```
 $ python3 --version
 ```
-2.) In a separate directory, create a virtual enviornment by typing this into your terminal:
+3.) In a separate directory, create a virtual enviornment by running:
 ```
 $ python3 -m venv <envionrment_name>
 ```
-3.) Activate your virtual envionrment by running:
+4.) Activate your virtual envionrment by running:
 ```
 $ source <enviornment_name>/bin/activate
 ```
-4.) Run the following command to install all required modules.
+5.) Run the following command to install all required modules.
 
 ```
 $ pip install -r requirements.txt
