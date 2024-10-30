@@ -35,6 +35,10 @@ $ python3 -m venv <envionrment_name>
 ```
 $ source <enviornment_name>/bin/activate
 ```
+or
+```
+$ . <enviornment_name>/bin/activate
+```
 5.) Run the following command to install all required modules.
 
 ```
