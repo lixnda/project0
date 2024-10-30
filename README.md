@@ -12,7 +12,10 @@
 
 ## Project Description
 
-Our project is a simplistic system for a web blog. Features include blog posting, a built-in blog editor, database, account system, and more!
+Our project is a minimialistic system essential to developing a web blog. Users can create an account, log in, and freely create or edit their own blogs using our amazing
+built-in editor with a plethora of features such as text styling. With an account, users can follow other users, upvote/downvote their blogs, 
+and comment on other user's blogs. On the home page, users should be able to search for blogs with titles or specific tags, filter blogs by most upvotes,
+and filter blogs made by their followers. Users can also view others' posted blogs by going to their profile. All of the database storage will be done using sqlite.
 
 ## Install Guide
 
