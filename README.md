@@ -33,7 +33,7 @@ $ python3 -m venv <envionrment_name>
 ```
 4.) Activate your virtual envionrment by running:
 ```
-$ source <enviornment_name>/bin/activate
+$ source <environment_name>/bin/activate
 ```
 or
 ```
