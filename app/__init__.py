@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "hi"
+    return render_template("index.html")
 
 @app.route("/profile")
 def profile():
@@ -24,9 +24,12 @@ def login():
 def logout():
     return "hi"
 
+"""
 # /follow/user ID to follow user
 @app.route("/follow")
+def follow():
     return "hi"
+"""
 
 # create blog here
 @app.route("/create")
