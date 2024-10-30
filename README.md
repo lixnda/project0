@@ -23,9 +23,19 @@ and filter blogs made by their followers. Users can also view others' posted blo
 ```
 $ git clone git@github.com:lixnda/project0.git
 ```
-2.) Activate a [virtual enviornment](https://github.com/stuy-softdev/notes-and-code/blob/main/how-to/howto_virtual_environment.md)
-
-3.) Run the following command to install all required modules.
+2.) Ensure [python3](https://www.python.org/downloads/) is downloaded by running:
+```
+$ python3 --version
+```
+2.) In a separate directory, create a virtual enviornment by typing this into your terminal:
+```
+$ python3 -m venv <envionrment_name>
+```
+3.) Activate your virtual envionrment by running:
+```
+$ source <enviornment_name>/bin/activate
+```
+4.) Run the following command to install all required modules.
 
 ```
 $ pip install -r requirements.txt
