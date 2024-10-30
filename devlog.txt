@@ -29,5 +29,6 @@ lindaZ -- 2024-10-30
 edited requirements.txt to have list that has components that are only necessary for project.
 edited readme.md to include commands for creating and activiating a virtual environment
 
-MarkZ -- 2024-10-30
-edited project description
+markM -- 2024-10-30
+honarary emissary from boolean boas
+edited project description to be much more elaborate in read.me
