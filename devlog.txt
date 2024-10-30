@@ -24,6 +24,7 @@ Added default code to files
 
 ankitaS -- 2024-10-29
 worked on adding default code to html files to render from app.py
+edited comments for creating/activating virtual env in readme.me
 
 lindaZ -- 2024-10-30
 edited requirements.txt to have list that has components that are only necessary for project.
