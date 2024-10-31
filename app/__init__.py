@@ -54,6 +54,12 @@ def create():
 def blogs():
     return "hi"
 
+#allowing users to like, comment, follow, track those numbers
+def interact():
+    return "hi"
+
+
+
 if __name__ == "__main__":
     app.debug = True 
     app.run()
