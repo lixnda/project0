@@ -24,7 +24,7 @@ def home():
 
 @app.route("/profile")
 def profile():
-    return "hi"
+    return render_template("profile.html")
 
 # optional search feature at /search
 
