@@ -33,3 +33,6 @@ edited readme.md to include commands for creating and activiating a virtual envi
 markM -- 2024-10-30
 honarary emissary from boolean boas
 edited project description to be much more elaborate in read.me
+
+markM -- 2024-10-31
+Formatted home page to integrate login and logout with sessions.
