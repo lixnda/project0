@@ -1,5 +1,5 @@
 from flask import Flask             
-from flask import render_template, session 
+from flask import render_template   
 from flask import request   
 import sqlite3, csv
 
@@ -12,19 +12,15 @@ login_cursor = login_db.cursor()
 profile_db = sqlite3.connect("profile_db.db")
 profile_cursor = profile_db.cursor()
 
-blog_db = sqlite3.connect("blog_db.db") # stores comments, rollback history, etc etc. Should have multiple tables in this table
+blog_db = sqplite3.connect("blog_db.db") # stores comments, rollback history, etc etc. Should have multiple tables in this table
 blog_cursor = blog_db.cursor()
 
 # add other functions and db if needed
 
+
 @app.route("/")
 def home():
-    login_link = "/login"
-    login_info = '''You are not logged in. Register an account '''
-    if "username" in session:
-        login_info = "You are logged in as user " + session["username"] + "You can logout "
-        login_link = "/logout"
-    return render_template("index.html", login_info = login_info, login_link = login_link)
+    return render_template("index.html")
 
 @app.route("/profile")
 def profile():
@@ -59,9 +55,17 @@ def blogs():
     return "hi"
 
 #allowing users to like, comment, follow, track those numbers
-def interact():
+def like():
+    like_count = 0
     return "hi"
 
+def comment():
+    comments_num = 0
+    return "hi"
+
+def follow():
+    follow_count = 0
+    return "hi"
 
 
 if __name__ == "__main__":
