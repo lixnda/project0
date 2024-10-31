@@ -48,6 +48,13 @@ def follow():
 def create():
     return "hi"
 
+@app.route("/addPost")
+def addPost():
+    return "hi"
+
+@app.route("/editPost")
+def editPost():
+    return "hi"
 # for blogs you can make /blogs/blog ID   
 # for blog editing you can make /blogs/blog ID/edit
 
