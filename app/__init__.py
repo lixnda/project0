@@ -5,18 +5,23 @@ import sqlite3, csv
 
 app = Flask(__name__)
 
-# cursor for login database
-login_db = sqlite3.connect("login_db.db")
-login_cursor = login_db.cursor()
+# cursor for database
+DB_FILE = "blog.db"
 
-profile_db = sqlite3.connect("profile_db.db")
-profile_cursor = profile_db.cursor()
-
-blog_db = sqplite3.connect("blog_db.db") # stores comments, rollback history, etc etc. Should have multiple tables in this table
-blog_cursor = blog_db.cursor()
+db = sqlite3.connect(DB_FILE)
+c = db.cursor()
 
 # add other functions and db if needed
 
+"""
+commands for database:
+c.execute("CREATE TABLE logins(user TEXT, password TEXT, id INTEGER)")
+c.execute("CREATE TABLE profile(id INTEGER, name TEXT)")
+
+#user can make multiple blogs, each blog containing more posts
+c.execute("CREATE TABLE blog(id INTEGER, blog_id INTEGER, name TEXT, bio TEXT)")
+c.execute("CREATE TABLE post(blog_id INTEGER, date TEXT, title TEXT, content TEXT)")
+"""
 
 @app.route("/")
 def home():
