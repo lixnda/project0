@@ -4,7 +4,19 @@ from flask import request
 import sqlite3, csv
 
 app = Flask(__name__)
-# add other functions if needed
+
+# cursor for login database
+login_db = sqlite3.connect("login_db.db")
+login_cursor = login_db.cursor()
+
+profile_db = sqlite3.connect("profile_db.db")
+profile_cursor = profile_db.cursor()
+
+blog_db = sqplite3.connect("blog_db.db") # stores comments, rollback history, etc etc. Should have multiple tables in this table
+blog_cursor = blog_db.cursor()
+
+# add other functions and db if needed
+
 
 @app.route("/")
 def home():
