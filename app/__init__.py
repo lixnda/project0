@@ -14,13 +14,13 @@ c = db.cursor()
 # add other functions and db if needed
 
 """
-commands for database:
-c.execute("CREATE TABLE logins(user TEXT, password TEXT, id INTEGER)")
-c.execute("CREATE TABLE profile(id INTEGER, name TEXT)")
+#commands for database:
+c.execute("CREATE TABLE logins(user TEXT, password TEXT, id INTEGER PRIMARY KEY)")
+c.execute("CREATE TABLE profile(id INTEGER PRIMARY KEY, user TEXT, bio TEXT)")
 
 #user can make multiple blogs, each blog containing more posts
-c.execute("CREATE TABLE blog(id INTEGER, blog_id INTEGER, name TEXT, bio TEXT)")
-c.execute("CREATE TABLE post(blog_id INTEGER, date TEXT, title TEXT, content TEXT)")
+c.execute("CREATE TABLE blog(id INTEGER PRIMARY KEY, blog_id INTEGER, name TEXT)")
+c.execute("CREATE TABLE entry(blog_id INTEGER, date TEXT, title TEXT, content TEXT)")
 """
 
 @app.route("/")
