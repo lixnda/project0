@@ -36,3 +36,6 @@ edited project description to be much more elaborate in read.me
 
 markM -- 2024-10-31
 Formatted home page to integrate login and logout with sessions.
+
+duaB -- 2024-10-31
+Added HTML files for editor and post creator.
