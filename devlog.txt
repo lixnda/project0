@@ -39,3 +39,6 @@ Formatted home page to integrate login and logout with sessions.
 
 duaB -- 2024-10-31
 Added HTML files for editor and post creator.
+
+ankitaS --  2024-10-31
+Worked on interact (like, comment, follow) options on app.py
