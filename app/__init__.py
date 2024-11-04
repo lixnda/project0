@@ -1,6 +1,6 @@
 from flask import Flask             
 from flask import render_template, session 
-from flask import request   
+from flask import request, redirect   
 import sqlite3, csv
 
 app = Flask(__name__)
@@ -28,16 +28,19 @@ def home():
 
 @app.route("/profile")
 def profile():
+    # if "username" in session:
     return "hi"
 
 # optional search feature at /search
 
 @app.route("/login")
 def login():
+    session["username"] = "test"
     return "hi"
 
 @app.route("/logout")
 def logout():
+    session.pop("username")
     return "hi"
 
 """
