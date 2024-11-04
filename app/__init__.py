@@ -15,13 +15,26 @@ c = db.cursor()
 
 """
 #commands for database:
-c.execute("CREATE TABLE logins(user TEXT, password TEXT, id INTEGER PRIMARY KEY)")
-c.execute("CREATE TABLE profile(id INTEGER PRIMARY KEY, user TEXT, bio TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS logins(user TEXT, password TEXT, id INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS profile(id INTEGER, user TEXT, bio TEXT, blog_id TEXT)")
 
 #user can make multiple blogs, each blog containing more posts
-c.execute("CREATE TABLE blog(id INTEGER PRIMARY KEY, blog_id INTEGER, name TEXT)")
-c.execute("CREATE TABLE entry(blog_id INTEGER, date TEXT, title TEXT, content TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER, blog_name TEXT, entry_id INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER, date TEXT, title TEXT, content TEXT)")
+
+SELECT profile.id, profile.user, profile.bio, blog.blog_id;
+FROM profile;
+RIGHT JOIN blog ON profile.blog_id=blog.blog_id;
 """
+c.execute("CREATE TABLE IF NOT EXISTS logins(user TEXT, password TEXT, id INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS profile(id INTEGER, user TEXT, bio TEXT, blog_id TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER, blog_name TEXT, entry_id INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER, date TEXT, title TEXT, content TEXT)")
+
+db.commit() #save changes
+
+
+db.close()  #close database
 
 @app.route("/")
 def home():
