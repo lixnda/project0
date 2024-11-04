@@ -1,9 +1,11 @@
 from flask import Flask             
 from flask import render_template, session 
 from flask import request, redirect   
-import sqlite3, csv
+import sqlite3, csv, os
 
 app = Flask(__name__)
+secret_hehe = os.urandom(32)
+app.secret_key = secret_hehe
 
 # cursor for login database
 login_db = sqlite3.connect("login_db.db")
@@ -22,14 +24,24 @@ def home():
     login_link = "/login"
     login_info = '''You are not logged in. Register an account '''
     if "username" in session:
-        login_info = "You are logged in as user " + session["username"] + "You can logout "
+        login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
+    # cur = blog_db.cursor()
+    # cur.execute("SELECT * FROM Posts") #subject to change
+    # rows = cur.fetchall() # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
+    
+    rows = [1, 123, "This is a Title", "These are the contents ", 123, "Bob"]
+
     return render_template("index.html", login_info = login_info, login_link = login_link)
 
 @app.route("/profile")
 def profile():
-    # if "username" in session:
-    return "hi"
+    if "username" in session:
+        user = session["username"]
+        return render_template("profile.html", user=user)
+    else:
+        return redirect("/login")
+    
 
 # optional search feature at /search
 
