@@ -8,7 +8,32 @@ app = Flask(__name__)
 secret_hehe = os.urandom(32)
 app.secret_key = secret_hehe
 
-database = sqlite3.connect("database.db")  # stores everything
+DB_FILE = "blog.db"
+db = sqlite3.connect(DB_FILE)
+c = db.cursor()
+
+c.execute("CREATE TABLE IF NOT EXISTS logins(id INTEGER PRIMARY KEY, password TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS profile(id INTEGER PRIMARY KEY, bio TEXT, blog_id TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, id INTEGER, FOREIGN KEY(id) REFERENCES profile(id))")
+c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY, date TEXT, title TEXT, content TEXT, blog_id INTEGER, FOREIGN KEY(blog_id) REFERENCES blog(blog_id))")
+
+"""
+------------------READ THIS----------------
+to see all blogs a user has:
+
+execute:
+"SELECT blog.blog_id, blog.blog_name
+FROM blog
+WHERE blog.id=<profile_you_want_to_list_blogs_for>;"
+
+-------------------------------------------
+similarly,
+to see all the entries a blog has:
+
+"SELECT entry.entry_id, entry.date, entry.title
+FROM entry
+WHERE blog_id=<blog_you_want_to_list_entries_for>
+"""
 
 @app.route("/")
 def home():
