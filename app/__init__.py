@@ -8,8 +8,6 @@ app = Flask(__name__)
 secret_hehe = os.urandom(32)
 app.secret_key = secret_hehe
 
-# database = sqlite3.connect("database.db")  # stores everything
-
 DB_FILE = "blog.db"
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()
@@ -26,7 +24,7 @@ to see all blogs a user has:
 execute:
 "SELECT blog.blog_id, blog.blog_name
 FROM blog
-WHERE blog.id=<profile_you_want_to_list_blogs_for>;"
+WHERE id=<profile_you_want_to_list_blogs_for>;"
 
 -------------------------------------------
 similarly,
@@ -34,7 +32,8 @@ to see all the entries a blog has:
 
 "SELECT entry.entry_id, entry.date, entry.title
 FROM entry
-WHERE blog_id=<blog_you_want_to_list_entries_for>
+WHERE blog_id=<blog_you_want_to_list_entries_for>"
+
 """
 
 @app.route("/")
