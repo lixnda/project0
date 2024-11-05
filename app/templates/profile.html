@@ -16,14 +16,11 @@
     <h3>
         Followers: {{ info[2] }}
     </h3>
-
     {% if username != logged_user %}
         <form action=/follow/{{ username }} method="POST">
         <input type="submit" name="Follow User", value="Follow">
         </form>
     {% endif %}
-    <hr>
-
     <h2>
         Recent Blogs
     </h2>

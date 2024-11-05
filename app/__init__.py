@@ -46,8 +46,9 @@ def home():
         login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
         username = session["username"]
+
     # cur = database.cursor()
-    # cur.execute("SELECT * FROM Posts") #subject to change
+    # cur.execute("SELECT * FROM entry") # subject to change
     # rows = cur.fetchall() # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
 
     # FOR TESTING
@@ -80,7 +81,6 @@ def home():
                            login_link=login_link,
                            posts=to_display
                            )
-
 
 @app.route("/profile/<username>")
 def profile(username):
@@ -119,14 +119,16 @@ def profile(username):
                            blogs = to_display
         )
 
-
-# optional search feature at /search
+@app.route("/search_user", methods=['POST'])
+def search_user():
+    if "username" not in session:
+        return redirect("/login")
+    return redirect("/profile/"+request.form['search'])
 
 @app.route("/login")
 def login():
     session["username"] = "test"
     return redirect("/")
-
 
 @app.route("/logout")
 def logout():
