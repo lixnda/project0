@@ -33,3 +33,8 @@ edited readme.md to include commands for creating and activiating a virtual envi
 markM -- 2024-10-30
 honarary emissary from boolean boas
 edited project description to be much more elaborate in read.me
+
+markM -- 2024-11-04
+Wrote flask code and HTML code for home page. Displayed recently updated blogs and profile-viewing features
+Developed profile page using flask and HTML. 
+Both pages are integrated with database, however uses test data for now.
