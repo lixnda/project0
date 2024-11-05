@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Your Profile</title>
+		<link href="../static/profile_style.css" rel="stylesheet" type="text/css" />
+	</head>
+
+    <title> Profile of {{ info[1] }}</title>
+
+    <h1>
+        User {{ info[1] }}
+    </h1>
+
+    <h3>
+        Followers: {{ info[2] }}
+    </h3>
+
+    <hr>
+
+    <h2>
+        Recent Blogs
+    </h2>
+    {% for blog in blogs %}
+        <h1>
+            <a href = blog/{{ blog[0] }} > {{ blog[1] }} </a>
+        </h1>
+        <h3>
+            Created on {{ blog[2] }}
+        </h3>
+        <div class="contents">
+                {{ blog[3] }}
+        </div>
+        <br><br><br>
+    {% endfor %}
+
+</html>
+
