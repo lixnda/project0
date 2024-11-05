@@ -13,7 +13,7 @@ db = sqlite3.connect(DB_FILE)
 c = db.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS logins(id INTEGER PRIMARY KEY, password TEXT)")
-c.execute("CREATE TABLE IF NOT EXISTS profile(id INTEGER PRIMARY KEY, bio TEXT, blog_id TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS profile(id INTEGER PRIMARY KEY, bio TEXT, followers INTEGER, blog_id TEXT)")
 c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, id INTEGER, FOREIGN KEY(id) REFERENCES profile(id))")
 c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY, date TEXT, title TEXT, content TEXT, blog_id INTEGER, FOREIGN KEY(blog_id) REFERENCES blog(blog_id))")
 
