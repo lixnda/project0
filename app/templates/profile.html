@@ -3,22 +3,24 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>Your Profile</title>
+		<title>{{info [1]}}'s Profile</title>
 		<link href="../static/profile_style.css" rel="stylesheet" type="text/css" />
 	</head>
 
-    <title> Profile of {{ info[1] }}</title>
+    <title> Profile of {{ username }}</title>
 
     <h1>
-        User {{ info[1] }}
+        User {{ username }}
     </h1>
 
     <h3>
         Followers: {{ info[2] }}
     </h3>
-
-    <hr>
-
+    {% if username != logged_user %}
+        <form action=/follow/{{ username }} method="POST">
+        <input type="submit" name="Follow User", value="Follow">
+        </form>
+    {% endif %}
     <h2>
         Recent Blogs
     </h2>

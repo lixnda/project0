@@ -33,6 +33,7 @@ to see all the entries a blog has:
 "SELECT entry.entry_id, entry.date, entry.title
 FROM entry
 WHERE blog_id=<blog_you_want_to_list_entries_for>"
+
 """
 
 @app.route("/")
@@ -44,8 +45,9 @@ def home():
         login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
         username = session["username"]
+
     # cur = database.cursor()
-    # cur.execute("SELECT * FROM Posts") #subject to change
+    # cur.execute("SELECT * FROM entry") # subject to change
     # rows = cur.fetchall() # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
 
     # FOR TESTING
@@ -79,7 +81,6 @@ def home():
                            posts=to_display
                            )
 
-
 @app.route("/profile/<username>")
 def profile(username):
     # make sure you are logged in
@@ -89,9 +90,15 @@ def profile(username):
     # cur = database.cursor()
     # cur.execute("SELECT * FROM Profile WHERE username = "+username)
     # rows = cur.fetchone() [ID, username, followers]
+
     rows = [1, "bob", 323]
 
     # cur = database.cursor()
+    '''
+    "SELECT blog.blog_id, blog.blog_name
+    FROM blog
+    WHERE blog.id=<profile_you_want_to_list_blogs_for>;"
+    '''
     # cur.execute("SELECT * FROM Blogs WHERE Author = "+username)
     # blog_rows = cur.fetchall()
 
@@ -104,30 +111,35 @@ def profile(username):
         to_display.append(list(blog_rows[i]))
         to_display[i][2] = datetime.utcfromtimestamp(to_display[i][2]).strftime('%Y-%m-%d %H:%M:%S')
     blog_rows.sort(key=lambda x: x[2], reverse=True)
-    return render_template("profile.html", info = rows, blogs = to_display)
+    return render_template("profile.html",
+                           logged_user = session["username"],
+                           username = username,
+                           info = rows,
+                           blogs = to_display
+        )
 
-
-# optional search feature at /search
+@app.route("/search_user", methods=['POST'])
+def search_user():
+    if "username" not in session:
+        return redirect("/login")
+    return redirect("/profile/"+request.form['search'])
 
 @app.route("/login")
 def login():
     session["username"] = "test"
     return redirect("/")
 
-
 @app.route("/logout")
 def logout():
     session.pop("username")
     return redirect("/")
 
-
-"""
-# /follow/user ID to follow user
-@app.route("/follow")
-def follow():
-    return "hi"
-"""
-
+@app.route("/follow/<username>", methods=['POST'])
+def follow(username):
+    # follow user, add to database, and redirect to where they came from
+    # maybe a post request will do
+    # ADD STUFF HERE
+    return redirect(request.referrer)
 
 # create blog here
 @app.route("/create")

@@ -18,6 +18,10 @@
                 <br>
                 {% if 'logout' in login_info %}
                     You can view your profile <a href=profile/{{ user }} >here</a>.
+                    <form action=/search_user method="POST">
+                    <input type="text" name="search">
+                    <input type="submit" name="Search User", value="Search User">
+                    </form>
                 {% endif %}
 			</center>
 		</h3>
