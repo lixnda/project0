@@ -24,7 +24,7 @@ to see all blogs a user has:
 execute:
 "SELECT blog.blog_id, blog.blog_name
 FROM blog
-WHERE blog.id=<profile_you_want_to_list_blogs_for>;"
+WHERE id=<profile_you_want_to_list_blogs_for>;"
 
 -------------------------------------------
 similarly,
