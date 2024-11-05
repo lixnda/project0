@@ -32,7 +32,16 @@ edited readme.md to include commands for creating and activiating a virtual envi
 
 markM -- 2024-10-30
 honarary emissary from boolean boas
+
+ankitaS --  2024-10-31
+Worked on interact (like, comment, follow) options on app.py
 edited project description to be much more elaborate in read.me
+
+lindaZ -- 2024-10-31
+worked on database organization, posted commands for creating tables
+
+markM -- 2024-10-31
+Worked on main app flask file organization.
 
 markM -- 2024-11-04
 Wrote flask code and HTML code for home page. Displayed recently updated blogs and profile-viewing features

@@ -10,7 +10,6 @@ app.secret_key = secret_hehe
 
 database = sqlite3.connect("database.db")  # stores everything
 
-
 @app.route("/")
 def home():
     login_link = "/login"
@@ -114,9 +113,19 @@ def create():
 # for blogs you can make /blogs/blog ID
 # for blog editing you can make /blogs/blog ID/edit
 
-def blogs():
-    return "hi"
-
+def display_blogs():
+    idx = 0
+    text = ""
+    user = ""
+    title = ""
+    date = ""
+    for row in result:
+        pull = row  #gets the latest row of info b/c it will loop and change pull until it gets to the end
+    user = pull[0]
+    idx = pull[1]
+    date = pull[2]
+    title = pull[3]
+    content = pull[4]
 
 if __name__ == "__main__":
     app.debug = True
