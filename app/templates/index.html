@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>mimic</title>
-		<link href="style.css" rel="stylesheet" type="text/css" />
+		<title>Boaa Blog</title>
+		<link href="../static/index_style.css" rel="stylesheet" type="text/css" />
 	</head>
 	<div>
 		<h1>
@@ -14,13 +14,29 @@
 		<h3>
 			<center>
 				{{login_info}}
-				<a href = {{login_link}} > here </a>
+				<a href = {{login_link}} >here</a>.
+                <br>
+                {% if 'logout' in login_info %}
+                    You can view your profile <a href=profile/{{ user }} >here</a>.
+                {% endif %}
 			</center>
 		</h3>
 
 		<h2>
 			Recently Updated Posts:
 		</h2>
+        {% for post in posts %}
+            <h1>
+                Post {{ post[0] }}: <a href = blog/{{ post[5] }}>{{post[3]}}</a> in {{ post[7] }}
+            </h1>
+            <h3>
+                By {{ post[6] }} on {{ post[2] }}
+            </h3>
+            <div class="contents">
+                {{ post[4] }}
+            </div>
+            <br><br><br>
+        {% endfor %}
 	</div>
-</html?
+</html>
 
