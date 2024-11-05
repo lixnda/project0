@@ -14,7 +14,11 @@
 		<h3>
 			<center>
 				{{login_info}}
-				<a href = {{login_link}} > here </a>
+				<a href = {{login_link}} >here</a>.
+                <br>
+                {% if 'logout' in login_info %}
+                    You can view your profile <a href=profile/{{ user }} >here</a>.
+                {% endif %}
 			</center>
 		</h3>
 

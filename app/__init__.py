@@ -15,9 +15,11 @@ database = sqlite3.connect("database.db")  # stores everything
 def home():
     login_link = "/login"
     login_info = '''You are not logged in. Register an account '''
+    username = "?"
     if "username" in session:
         login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
+        username = session["username"]
     # cur = database.cursor()
     # cur.execute("SELECT * FROM Posts") #subject to change
     # rows = cur.fetchall() # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
@@ -47,6 +49,7 @@ def home():
         to_display[i].append("skibidi " + str(i)) # FOR TESTING
 
     return render_template("index.html",
+                           user=username,
                            login_info=login_info,
                            login_link=login_link,
                            posts=to_display
