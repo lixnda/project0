@@ -36,3 +36,6 @@ honarary emissary from boolean boas
 ankitaS --  2024-10-31
 Worked on interact (like, comment, follow) options on app.py
 edited project description to be much more elaborate in read.me
+
+lindaZ -- 2024-10-31
+worked on database organization, posted commands for creating tables
