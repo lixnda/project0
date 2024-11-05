@@ -32,7 +32,7 @@ to see all the entries a blog has:
 
 "SELECT entry.entry_id, entry.date, entry.title
 FROM entry
-WHERE blog_id=<blog_you_want_to_list_entries_for>
+WHERE blog_id=<blog_you_want_to_list_entries_for>"
 """
 
 @app.route("/")
