@@ -8,7 +8,34 @@ app = Flask(__name__)
 secret_hehe = os.urandom(32)
 app.secret_key = secret_hehe
 
-database = sqlite3.connect("database.db")  # stores everything
+# database = sqlite3.connect("database.db")  # stores everything
+
+DB_FILE = "blog.db"
+db = sqlite3.connect(DB_FILE)
+c = db.cursor()
+
+c.execute("CREATE TABLE IF NOT EXISTS logins(id INTEGER PRIMARY KEY, password TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS profile(id INTEGER PRIMARY KEY, bio TEXT, followers INTEGER, blog_id TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, id INTEGER, FOREIGN KEY(id) REFERENCES profile(id))")
+c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY, date TEXT, title TEXT, content TEXT, blog_id INTEGER, FOREIGN KEY(blog_id) REFERENCES blog(blog_id))")
+
+"""
+------------------READ THIS----------------
+to see all blogs a user has:
+
+execute:
+"SELECT blog.blog_id, blog.blog_name
+FROM blog
+WHERE blog.id=<profile_you_want_to_list_blogs_for>;"
+
+-------------------------------------------
+similarly,
+to see all the entries a blog has:
+
+"SELECT entry.entry_id, entry.date, entry.title
+FROM entry
+WHERE blog_id=<blog_you_want_to_list_entries_for>
+"""
 
 @app.route("/")
 def home():
@@ -64,9 +91,15 @@ def profile(username):
     # cur = database.cursor()
     # cur.execute("SELECT * FROM Profile WHERE username = "+username)
     # rows = cur.fetchone() [ID, username, followers]
+
     rows = [1, "bob", 323]
 
     # cur = database.cursor()
+    '''
+    "SELECT blog.blog_id, blog.blog_name
+    FROM blog
+    WHERE blog.id=<profile_you_want_to_list_blogs_for>;"
+    '''
     # cur.execute("SELECT * FROM Blogs WHERE Author = "+username)
     # blog_rows = cur.fetchall()
 
@@ -79,7 +112,12 @@ def profile(username):
         to_display.append(list(blog_rows[i]))
         to_display[i][2] = datetime.utcfromtimestamp(to_display[i][2]).strftime('%Y-%m-%d %H:%M:%S')
     blog_rows.sort(key=lambda x: x[2], reverse=True)
-    return render_template("profile.html", info = rows, blogs = to_display)
+    return render_template("profile.html",
+                           logged_user = session["username"],
+                           username = username,
+                           info = rows,
+                           blogs = to_display
+        )
 
 
 # optional search feature at /search
@@ -95,14 +133,12 @@ def logout():
     session.pop("username")
     return redirect("/")
 
-
-"""
-# /follow/user ID to follow user
-@app.route("/follow")
-def follow():
-    return "hi"
-"""
-
+@app.route("/follow/<username>", methods=['POST'])
+def follow(username):
+    # follow user, add to database, and redirect to where they came from
+    # maybe a post request will do
+    # ADD STUFF HERE
+    return redirect(request.referrer)
 
 # create blog here
 @app.route("/create")
