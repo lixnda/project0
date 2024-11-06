@@ -44,7 +44,7 @@ def home():
     if "username" in session:
         login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
-        username = session["username"]
+        username = session["username"]                                      
 
     # cur = database.cursor()
     # cur.execute("SELECT * FROM entry") # subject to change
