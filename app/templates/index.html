@@ -25,6 +25,14 @@
                 {% endif %}
 			</center>
 		</h3>
+		
+		{% if 'logout' in login_info %}
+		<div class="create">
+			<form action=/create method="POST">
+			<input type="submit" name="create" value="Create Blog">
+			</form>
+		</div>
+		{% endif %}
 
 		<h2>
 			Recently Updated Posts:
