@@ -144,7 +144,7 @@ def follow(username):
 # create blog here
 @app.route("/create")
 def create():
-    return "hi"
+    return render_html("blogMaker.html")
 
 
 # for blogs you can make /blogs/blog ID
