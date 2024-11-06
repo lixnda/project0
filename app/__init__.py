@@ -12,9 +12,9 @@ DB_FILE = "blog.db"
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()
 
-c.execute("CREATE TABLE IF NOT EXISTS logins(id INTEGER PRIMARY KEY, password TEXT)")
-c.execute("CREATE TABLE IF NOT EXISTS profile(id INTEGER PRIMARY KEY, bio TEXT, followers INTEGER, blog_id TEXT)")
-c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, id INTEGER, FOREIGN KEY(id) REFERENCES profile(id))")
+c.execute("CREATE TABLE IF NOT EXISTS logins(user TEXT PRIMARY KEY, password TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS profile(user TEXT PRIMARY KEY, bio TEXT, followers INTEGER, blog_id TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, user TEXT, FOREIGN KEY(user) REFERENCES profile(user))")
 c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY, date TEXT, title TEXT, content TEXT, blog_id INTEGER, FOREIGN KEY(blog_id) REFERENCES blog(blog_id))")
 
 """
@@ -24,7 +24,7 @@ to see all blogs a user has:
 execute:
 "SELECT blog.blog_id, blog.blog_name
 FROM blog
-WHERE id=<profile_you_want_to_list_blogs_for>;"
+WHERE user=<profile_you_want_to_list_blogs_for>;"
 
 -------------------------------------------
 similarly,
@@ -38,14 +38,18 @@ WHERE blog_id=<blog_you_want_to_list_entries_for>"
 
 @app.route("/")
 def home():
+    """
     login_link = "/login"
     login_info = '''You are not logged in. Register an account '''
     username = "?"
+    """
     if "username" in session:
         login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
-        username = session["username"]                                      
-
+        username = session["username"]
+    else:
+        redirect(url_for('login'))
+        
     # cur = database.cursor()
     # cur.execute("SELECT * FROM entry") # subject to change
     # rows = cur.fetchall() # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
@@ -80,6 +84,13 @@ def home():
                            login_link=login_link,
                            posts=to_display
                            )
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('home'))
+    return render_template("login.html")
 
 @app.route("/profile/<username>")
 def profile(username):
