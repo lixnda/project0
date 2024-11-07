@@ -81,11 +81,11 @@ def home():
         to_display.append([counter, entry_id, timestamp, title, content, blog_id, author, blog_title])
 
     return render_template("index.html",
-                           user=username,
-                           login_info=login_info,
-                           login_link=login_link,
-                           posts=to_display
-                           )
+            user=username,
+            login_info=login_info,
+            login_link=login_link,
+            posts=to_display
+            )
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -93,17 +93,17 @@ def login():
         password = request.form["password"]
         c.execute("SELECT name, password FROM logins WHERE name=?", (username,))
         user = c.fetchone()
-        
+
         #checks if username exists
         if user:
             #turns into string
             un, pw = user
-            
+
             if username == un and password==pw:
                 session['username']=username
                 return redirect(url_for('home'))
         return "Invalid login credentials"
-            
+
     return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -113,7 +113,7 @@ def register():
         password = request.form["newpassword"]
     c.execute("INSERT INTO logins (name, password) VALUES (?, ?)", (username, password))
     db.commit()
-    
+
     return redirect(url_for('login'))
 
 @app.route("/profile/<username>")
@@ -148,11 +148,11 @@ def profile(username):
     # ]
 
     return render_template("profile.html",
-                           logged_user = session["username"],
-                           username = username,
-                           info = rows,
-                           blogs = blog_rows
-        )
+            logged_user = session["username"],
+            username = username,
+            info = rows,
+            blogs = blog_rows
+            )
 
 @app.route("/search_user", methods=['POST'])
 def search_user():
@@ -193,9 +193,37 @@ def create():
         c.execute(command, vals)
         db.commit()
         return redirect("/profile/"+name)
-        #return redirect("/blog/"+name) ?
+    #return redirect("/blog/"+name) ?
     return render_template("blogs.html")
 
+@app.route("/create_entry/<blog_id>", methods = ['GET', 'POST'])
+def create_entry(blog_id):
+    if not "username" in session:
+        return redirect("/login")
+    user = username["session"]
+    # get blog information here
+    c.execute("""
+        SELECT blog_id, blog_name, description, name
+        FROM blog
+        WHERE blog_id = ? AND name = ?
+    """, (blog_id, user))
+    blog_info = c.fetchone()
+    if not blog_info:
+        return redirect("/login")
+    if request.method == 'POST':
+        title = request.form.get('title')
+        content = request.form.get('content')
+        date = int(datetime.utcnow().timestamp())  # Store as UNIX timestamp
+
+        # Insert the new entry into the 'entry' table
+        c.execute("""
+            INSERT INTO entry (date, title, content, blog_id)
+            VALUES (?, ?, ?, ?)
+        """, (date, title, content, blog_id))
+        db.commit() 
+        return redirect(f"/blogs/{blog_id}")
+
+    return render_template("create_entry.html", blog=blog_info) 
 # for blogs you can make /blogs/blog ID
 # for blog editing you can make /blogs/blog ID/edit
 
@@ -208,15 +236,15 @@ def display_blogs(blog_id):
         JOIN profile ON blog.id = profile.id
         WHERE entry.entry_id = ?
     """, (blog_id,))
-    
+
     row = c.fetchone()
-        
+
     if row:
         user = row[4]  # Fetching the author's username
         date = datetime.utcfromtimestamp(row[1]).strftime('%Y-%m-%d %H:%M:%S')  # Convert timestamp
         title = row[2]
         text = row[3]
-        
+
         return render_template("entries.html", user=user, date=date, title=title, text=text)
 
 if __name__ == "__main__":

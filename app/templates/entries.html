@@ -11,6 +11,10 @@
 			<center> {{title}} </center>
 		</h1>
 		
+		<form action="/create_entry/{{ blog_id }}" method="GET">
+                	<button type="submit">Create New Entry</button>
+            	</form>
+
 		<div>
 		<p>
 		By: {{user}}

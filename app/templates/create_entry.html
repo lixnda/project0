@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Entry</title>
+</head>
+<body>
+    <h1>Create a New Entry for "{{ blog[1] }}"</h1>
+    <form method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" placeholder="Enter entry title" required><br><br>
+        
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="10" placeholder="Write your entry content here..." required></textarea><br><br>
+        
+        <button type="submit">Create Entry</button>
+    </form>
+</body>
+</html>
+
