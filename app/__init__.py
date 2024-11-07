@@ -190,7 +190,7 @@ def display_blogs(blog_id):
         title = row["title"]
         text = row["content"]
         
-        return render_template("blogs.html", user=user, date=date, title=title, text=text)
+        return render_template("entries.html", user=user, date=date, title=title, text=text)
 
 if __name__ == "__main__":
     app.debug = True
