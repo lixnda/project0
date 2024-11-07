@@ -157,7 +157,11 @@ def create():
         blog_desc = request.form.get('Description')
         name = session['username']
         c.execute("SELECT MAX(blog_id) FROM blog")
-        max_blog_id = c.fetchone()[0] + 1
+        max_blog_id = 1
+        try:
+            max_blog_id = c.fetchone()[0] + 1
+        except:
+            pass
         vals = (max_blog_id, blog_name, blog_desc, name)
         command = f"INSERT INTO blog(blog_id, blog_name, description, name) VALUES(?,?,?,?)"
         c.execute(command, vals)
