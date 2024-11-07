@@ -151,11 +151,12 @@ def create():
     if "username" not in session:
         return redirect("/login")
     if request.method == 'POST'
+        blog_id = cursor.lastrowid()
         blog_name = request.form.get('name')
         blog_desc = request.form.get('Description')
         name = session['username']
-        vals = (blog_name, blog_desc, name)
-        command = f"INSERT INTO blog(blog_name, blog_desc, name) VALUES(?,?,?)"
+        vals = (blog_id,blog_name, blog_desc, name)
+        command = f"INSERT INTO blog(blog_id, blog_name, blog_desc, name) VALUES(?,?,?,?)"
         cursor.execute(command, vals)
         db.commit()
         return redirect(f"/profile/name")
