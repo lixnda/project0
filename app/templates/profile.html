@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>{{info [1]}}'s Profile</title>
+		<title>{{info [0]}}'s Profile</title>
 		<link href="../static/profile_style.css" rel="stylesheet" type="text/css" />
 	</head>
 
@@ -14,7 +14,7 @@
     </h1>
 
     <h3>
-        Followers: {{ info[2] }}
+        Followers: {{ info[1] }}
     </h3>
     {% if username != logged_user %}
         <form action=/follow/{{ username }} method="POST">
@@ -29,7 +29,7 @@
             <a href = blog/{{ blog[0] }} > {{ blog[1] }} </a>
         </h1>
         <h3>
-            Created on {{ blog[2] }}
+            Description: {{ blog[2] }}
         </h3>
         <div class="contents">
                 {{ blog[3] }}
