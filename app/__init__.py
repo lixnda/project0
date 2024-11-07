@@ -236,13 +236,18 @@ def display_blogs(blog_id):
         JOIN blog ON entry.blog_id = blog.blog_id
         WHERE blog.blog_id = ?
     """, (blog_id,))
-
-    row = c.fetchone()
     
-    user = "null"
+    get_all = c.fetchall()
+    row = None
+    try:
+        row = get_all[-1]
+    except:
+        pass
+    
+    user = ""
     date = 0
-    title = "null"
-    text = "null"
+    title = ""
+    text = ""
     if row:
         user = row[3]  # Fetching the author's id
         date = datetime.utcfromtimestamp(row[0]).strftime('%Y-%m-%d %H:%M:%S')  # Convert timestamp
