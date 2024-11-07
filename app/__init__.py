@@ -231,7 +231,7 @@ def create_entry(blog_id):
 @app.route("/profile/blog/<blog_id>")
 def display_blogs(blog_id):
     c.execute("""
-        SELECT entry.entry_id, entry.date, entry.title, entry.content, blog.name, blog.blog_name
+        SELECT entry.date, entry.title, entry.content, blog_id
         FROM entry
         JOIN blog ON entry.blog_id = blog.blog_id
         WHERE blog.blog_id = ?
@@ -240,10 +240,10 @@ def display_blogs(blog_id):
     row = c.fetchone()
 
     if row:
-        user = row[4]  # Fetching the author's username
-        date = datetime.utcfromtimestamp(row[1]).strftime('%Y-%m-%d %H:%M:%S')  # Convert timestamp
-        title = row[2]
-        text = row[3]
+        user = row[3]  # Fetching the author's id
+        date = datetime.utcfromtimestamp(row[0]).strftime('%Y-%m-%d %H:%M:%S')  # Convert timestamp
+        title = row[1]
+        text = row[2]
 
         return render_template("entries.html", user=user, date=date, title=title, text=text)
 
