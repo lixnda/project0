@@ -60,3 +60,4 @@ worked on display_blog function and blog.html that corresponds with it
 markM -- 2024-11-06
 Improved formatting in index.html. Added references to other functionalities in home page.
 Integrated home and profile page with new database format.
+Fixed syntax and database issues for post request with blog creation.
