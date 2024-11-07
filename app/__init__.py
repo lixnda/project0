@@ -151,16 +151,18 @@ def follow(username):
 def create():
     if "username" not in session:
         return redirect("/login")
-    if request.method == 'POST'
-        blog_id = cursor.lastrowid()
-        blog_name = request.form.get('name')
+    if request.method == 'POST':
+        blog_id = c.lastrowid
+        blog_name = request.form.get('Blog Name')
         blog_desc = request.form.get('Description')
         name = session['username']
-        vals = (blog_name, blog_desc, name)
-        command = f"INSERT INTO blog(blog_name, description, name) VALUES(?,?,?)"
-        cursor.execute(command, vals)
+        c.execute("SELECT MAX(blog_id) FROM blog")
+        max_blog_id = c.fetchone()[0] + 1
+        vals = (max_blog_id, blog_name, blog_desc, name)
+        command = f"INSERT INTO blog(blog_id, blog_name, description, name) VALUES(?,?,?,?)"
+        c.execute(command, vals)
         db.commit()
-        return redirect(f"/profile/name")
+        return redirect("/profile/"+name)
     return render_template("blogs.html")
 
 # for blogs you can make /blogs/blog ID
@@ -180,7 +182,7 @@ def display_blogs(blog_id):
         
     if row: #checks to veify it is fetched and there
         user = row["bio"]  
-        date = datetime.strptime(entry["date"], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+        date = datetime.strptime(row["date"], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
         title = row["title"]
         text = row["content"]
         
