@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Users List{% endblock %}
+{% block title %}Blog Post List{% endblock %}
 
 {% block content %}
 <h1>{{session.get('username')}} Profile</h1>
-<h1>Blog List</h1>
-<a href="{{url_for('create_blog')}}"> Create Blog</a>
+<h2>Blog Name: {{blog_name}}</h2>
+<h3>Blog Posts List</h3>
+<a href="{{url_for('create_blogpost',blog_id=blog_id)}}"> Create post</a>
+<a href="{{url_for('read_profile')}}"> back</a>
 <table>
     <tr>
-        <th>Blog ID</th>
-        <th>Blog Name</th>
+        <th>post ID</th>
+        <th>post Name</th>
         <th>Description</th>
-        <th>User ID</th>
+        <th>Blog ID</th>
         <th>Actions</th>
     </tr>
     {% for _row in db_rows %}
@@ -21,8 +23,9 @@
         <td>{{ _row[2] }}</td>
         <td>{{ _row[3] }}</td>
         <td>
-            <a href="{{ url_for('read_blogpost', blog_id=_row[0]) }}">Posts</a>
-            <a href="{{ url_for('update_blog', blog_id=_row[0]) }}">Edit</a>
+
+            <a href="{{ url_for('update_blogpost',blog_id=blog_id, post_id=_row[0]) }}">Edit</a>
+
         </td>
     </tr>
     {% endfor %}

@@ -1,14 +1,23 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>mimic</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-<div>
-  <h1>Welcome to your profile.</h1>
-   <button>Sign up</button>
-   <button>Login</button>
-  <p></p>
-</div>
+<head>
+    <title> Login </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h1> Login </h1>
+
+    <form action="/" method="POST">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="Login" value=Login>
+    </form>
+    <br>
+    <form action="/signup" method="POST">
+        <p>Don't have an account? Click the button:</p>
+        <input type="submit" name="Login" value="sign up">
+    </form>
+    <br>
+</body>
+<html>

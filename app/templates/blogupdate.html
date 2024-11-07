@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Blog{% endblock %}
+
+{% block content %}
+<h1>Update Blog</h1>
+<form action="{{ url_for('update_blog', blog_id=db_row[0]) }}" method="post">
+    <label for="blogname">BLog Name:</label>
+    <input type="text" id="blogname" name="blogname" value="{{ db_row[1] }}" required>
+    <label for="blogdesc">Description :</label>
+    <textarea id="blogdesc" name="blogdesc" required>{{ db_row[2] }}</textarea>
+    <button type="submit">Update</button>
+</form>
+{% endblock %}

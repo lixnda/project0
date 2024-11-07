@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Users List{% endblock %}
+
+{% block content %}
+<h1>Users List</h1>
+
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>username</th>
+        <th>password</th>
+        <th>Actions</th>
+    </tr>
+    {% for _row in db_rows %}
+    <tr>
+        <td>{{ _row[0] }}</td>
+        <td>{{ _row[1] }}</td>
+        <td>{{ _row[2] }}</td>
+        <td>{{ _row[3] }}</td>
+        <td>{{ _row[4] }}</td>
+        <td>
+            <a href="{{ url_for('update_user', user_id=_row[0]) }}">Edit</a>
+            <form action="{{ url_for('delete_user', user_id=_row[0]) }}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
