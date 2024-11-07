@@ -61,3 +61,7 @@ markM -- 2024-11-06
 Improved formatting in index.html. Added references to other functionalities in home page.
 Integrated home and profile page with new database format.
 Fixed syntax and database issues for post request with blog creation.
+
+lindaZ -- 2024-11-06
+working login and registration page; added to database
+improved redirects between login

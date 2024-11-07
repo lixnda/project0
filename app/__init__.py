@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template, session
-from flask import request, redirect
+from flask import request, redirect, url_for
 import sqlite3, csv, os
 from datetime import datetime
 
@@ -24,7 +24,7 @@ to see all blogs a user has:
 execute:
 "SELECT blog.blog_id, blog.blog_name
 FROM blog
-WHERE id=<profile_you_want_to_list_blogs_for>;"
+WHERE name=<profile_you_want_to_list_blogs_for>;"
 
 -------------------------------------------
 similarly,
@@ -44,7 +44,9 @@ def home():
     if "username" in session:
         login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
-        username = session["username"]                                      
+        username = session["username"]
+    else:
+        return redirect(url_for('login'))
 
     query = """
         SELECT entry.entry_id, entry.date, entry.title, entry.content, entry.blog_id, blog.blog_name
@@ -84,6 +86,35 @@ def home():
                            login_link=login_link,
                            posts=to_display
                            )
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form["username"]
+        password = request.form["password"]
+        c.execute("SELECT name, password FROM logins WHERE name=?", (username,))
+        user = c.fetchone()
+        
+        #checks if username exists
+        if user:
+            #turns into string
+            un, pw = user
+            
+            if username == un and password==pw:
+                session['username']=username
+                return redirect(url_for('home'))
+        return "Invalid login credentials"
+            
+    return render_template("login.html")
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form["newusername"]
+        password = request.form["newpassword"]
+    c.execute("INSERT INTO logins (name, password) VALUES (?, ?)", (username, password))
+    db.commit()
+    
+    return redirect(url_for('login'))
 
 @app.route("/profile/<username>")
 def profile(username):
@@ -128,11 +159,6 @@ def search_user():
     if "username" not in session:
         return redirect("/login")
     return redirect("/profile/"+request.form['search'])
-
-@app.route("/login")
-def login():
-    session["username"] = "test"
-    return redirect("/")
 
 @app.route("/logout")
 def logout():
