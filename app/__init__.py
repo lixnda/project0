@@ -9,7 +9,7 @@ secret_hehe = os.urandom(32)
 app.secret_key = secret_hehe
 
 DB_FILE = "blog.db"
-db = sqlite3.connect(DB_FILE)
+db = sqlite3.connect(DB_FILE, check_same_thread=False)
 c = db.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS logins(name TEXT PRIMARY KEY, password TEXT)")
@@ -46,33 +46,37 @@ def home():
         login_link = "/logout"
         username = session["username"]                                      
 
-    # cur = database.cursor()
-    # cur.execute("SELECT * FROM entry") # subject to change
-    # rows = cur.fetchall() # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
+    query = """
+        SELECT entry.entry_id, entry.date, entry.title, entry.content, entry.blog_id, blog.blog_name
+        FROM entry
+        JOIN blog ON entry.blog_id = blog.blog_id
+    """
+
+    c.execute(query)
+    rows = c.fetchall()  # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
 
     # FOR TESTING
-    rows = [
-        (1, 123, "This is a Title", "These are the contents ", 1, "Bob"),
-        (2, 321, "This is a Title For Blog 2",
-         "Lorem ipsum odor amet, consectetuer adipiscing elit. Montes iaculis auctor magnis sagittis maecenas egestas class velit. Hac odio erat tellus penatibus, nunc dis litora. Odio egestas est dignissim sodales nec tempor parturient massa. Class ultricies torquent himenaeos sit libero dignissim libero. Vel facilisi mollis morbi ad magna cursus sollicitudin fringilla. Vel pharetra interdum at varius integer habitasse. Molestie curabitur euismod in viverra blandit sociosqu id. Litora aptent volutpat posuere porttitor fringilla.",
-         2, "Joe")
-    ]
+    # rows = [
+    #     (1, 123, "This is a Title", "These are the contents ", 1, "Bob"),
+    #     (2, 321, "This is a Title For Blog 2",
+    #      "Lorem ipsum odor amet, consectetuer adipiscing elit. Montes iaculis auctor magnis sagittis maecenas egestas class velit. Hac odio erat tellus penatibus, nunc dis litora. Odio egestas est dignissim sodales nec tempor parturient massa. Class ultricies torquent himenaeos sit libero dignissim libero. Vel facilisi mollis morbi ad magna cursus sollicitudin fringilla. Vel pharetra interdum at varius integer habitasse. Molestie curabitur euismod in viverra blandit sociosqu id. Litora aptent volutpat posuere porttitor fringilla.",
+    #      2, "Joe")
+    # ]
 
     rows.sort(key=lambda x: x[1], reverse=True)
 
-    to_display = []  # [Counter, Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author, BLOG TITLE]
+    to_display = []  # [Counter, Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author, blog TITLE]
     for i in range(min(10, len(rows))):
-        to_display.append([i + 1] + list(rows[i]))
-        to_display[i][2] = datetime.utcfromtimestamp(to_display[i][2]).strftime('%Y-%m-%d %H:%M:%S')
-        if len(to_display[i][4]) > 300:
-            to_display[i][4] = to_display[i][4][:300] + "..."
-
-        # cur = database.cursor()
-        # cur.execute("SELECT * FROM Blog WHERE BlogID = " + str(to_display[5])
-        # item = cur.fetchone() [blogID, data published, name, description, author]
-        # to_display[i].append(item[2])
-
-        to_display[i].append("skibidi " + str(i)) # FOR TESTING
+        row = list(rows[i])
+        counter = i + 1
+        entry_id, timestamp, title, content, blog_id, author = row
+        timestamp = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+        if len(content) > 300:
+            content = content[:300] + "..."
+        c.execute("SELECT blog_name FROM blog WHERE blog_id = ?", (blog_id,))
+        blog_title = c.fetchone()[0]
+        # blog_title = "skibidi"
+        to_display.append([counter, entry_id, timestamp, title, content, blog_id, author, blog_title])
 
     return render_template("index.html",
                            user=username,
@@ -93,29 +97,30 @@ def profile(username):
 
     rows = [1, "bob", 323]
 
+    c.execute("SELECT name, followers FROM profile WHERE name = ?", (username,))
+    rows = c.fetchone()
+
     # cur = database.cursor()
-    '''
-    "SELECT blog.blog_id, blog.blog_name
-    FROM blog
-    WHERE blog.id=<profile_you_want_to_list_blogs_for>;"
-    '''
     # cur.execute("SELECT * FROM Blogs WHERE Author = "+username)
     # blog_rows = cur.fetchall()
 
-    blog_rows = [
-        (1, "Blog 1", 3123, "Hi this is a description", "Bob"),
-        (2, "Blog 2", 323, "Hi this is a description 2", "Bob")
-    ]
-    to_display = []
-    for i in range(len(blog_rows)):
-        to_display.append(list(blog_rows[i]))
-        to_display[i][2] = datetime.utcfromtimestamp(to_display[i][2]).strftime('%Y-%m-%d %H:%M:%S')
-    blog_rows.sort(key=lambda x: x[2], reverse=True)
+    c.execute("""
+        SELECT blog_id, blog_name, description, name
+        FROM blog
+        WHERE name = ?
+    """, (username,))
+    blog_rows = c.fetchall()  # Each row will contain [blog_id, blog_name, description, author]
+
+    # blog_rows = [
+    #     (1, "Blog 1", "Hi this is a description", "Bob"),
+    #     (2, "Blog 2",  "Hi this is a description 2", "Bob")
+    # ]
+
     return render_template("profile.html",
                            logged_user = session["username"],
                            username = username,
                            info = rows,
-                           blogs = to_display
+                           blogs = blog_rows
         )
 
 @app.route("/search_user", methods=['POST'])
@@ -151,13 +156,8 @@ def create():
         blog_name = request.form.get('name')
         blog_desc = request.form.get('Description')
         name = session['username']
-<<<<<<< HEAD
-        vals = (blog_id,blog_name, blog_desc, name)
-        command = f"INSERT INTO blog(blog_id, blog_name, blog_desc, name) VALUES(?,?,?,?)"
-=======
         vals = (blog_name, blog_desc, name)
         command = f"INSERT INTO blog(blog_name, description, name) VALUES(?,?,?)"
->>>>>>> e288ebd64476770c3060f94ee55dce749f92ff9d
         cursor.execute(command, vals)
         db.commit()
         return redirect(f"/profile/name")
