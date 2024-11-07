@@ -14,11 +14,7 @@ c = db.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS logins(name TEXT PRIMARY KEY, password TEXT)")
 c.execute("CREATE TABLE IF NOT EXISTS profile(name TEXT PRIMARY KEY, followers INTEGER)")
-<<<<<<< HEAD
-c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, blog_desc TEXT, name TEXT, FOREIGN KEY(name) REFERENCES profile(name))")
-=======
-c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, description TEXT, FOREIGN KEY(name) REFERENCES profile(name))")
->>>>>>> ea1b682ec9087780371a67130aa0a87dc5184613
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, description TEXT, name TEXT, FOREIGN KEY(name) REFERENCES profile(name))")
 c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY, date INTEGER, title TEXT, content TEXT, blog_id INTEGER, FOREIGN KEY(blog_id) REFERENCES blog(blog_id))")
 
 """
@@ -155,7 +151,7 @@ def create():
         blog_desc = request.form.get('Description')
         name = session['username']
         vals = (blog_name, blog_desc, name)
-        command = f"INSERT INTO blog(blog_name, blog_desc, name) VALUES(?,?,?)"
+        command = f"INSERT INTO blog(blog_name, description, name) VALUES(?,?,?)"
         cursor.execute(command, vals)
         db.commit()
         return redirect(f"/profile/name")
