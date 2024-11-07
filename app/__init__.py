@@ -193,6 +193,7 @@ def create():
         c.execute(command, vals)
         db.commit()
         return redirect("/profile/"+name)
+        #return redirect("/blog/"+name) ?
     return render_template("blogs.html")
 
 # for blogs you can make /blogs/blog ID
