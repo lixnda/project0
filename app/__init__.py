@@ -14,7 +14,7 @@ c = db.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS logins(name TEXT PRIMARY KEY, password TEXT)")
 c.execute("CREATE TABLE IF NOT EXISTS profile(name TEXT PRIMARY KEY, followers INTEGER)")
-c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, name TEXT, FOREIGN KEY(id) REFERENCES profile(id))")
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, name TEXT, FOREIGN KEY(name) REFERENCES profile(name))")
 c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY, date INTEGER, title TEXT, content TEXT, blog_id INTEGER, FOREIGN KEY(blog_id) REFERENCES blog(blog_id))")
 
 """
