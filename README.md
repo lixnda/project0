@@ -29,7 +29,7 @@ $ python3 --version
 ```
 3.) In a separate directory, create a virtual enviornment by running:
 ```
-$ python3 -m venv <envionrment_name>
+$ python3 -m venv <environment_name>
 ```
 4.) Activate your virtual envionrment by running:
 ```
