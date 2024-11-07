@@ -44,7 +44,7 @@ def home():
     if "username" in session:
         login_info = "You are logged in as user " + session["username"] + ". You can logout "
         login_link = "/logout"
-        username = session["username"]
+        username = session["username"]                                      
 
     query = """
         SELECT entry.entry_id, entry.date, entry.title, entry.content, entry.blog_id, blog.blog_name
@@ -97,6 +97,10 @@ def profile(username):
 
     rows = [1, "bob", 323]
 
+    c.execute("PRAGMA table_info(profile)")
+    columns = c.fetchall()
+    print(columns)
+
     c.execute("SELECT name, followers FROM profile WHERE name = ?", (username,))
     rows = c.fetchone()
 
@@ -147,10 +151,21 @@ def follow(username):
     return redirect(request.referrer)
 
 # create blog here
-@app.route("/create")
+@app.route("/create", methods =['GET','POST'])
 def create():
-    return render_html("blogMaker.html")
-
+    if "username" not in session:
+        return redirect("/login")
+    if request.method == 'POST':
+        blog_id = c.lastrowid()
+        blog_name = request.form.get('name')
+        blog_desc = request.form.get('Description')
+        name = session['username']
+        vals = (blog_name, blog_desc, name)
+        command = f"INSERT INTO blog(blog_name, description, name) VALUES(?,?,?)"
+        c.execute(command, vals)
+        db.commit()
+        return redirect(f"/profile/name")
+    return render_template("blogs.html")
 
 # for blogs you can make /blogs/blog ID
 # for blog editing you can make /blogs/blog ID/edit
