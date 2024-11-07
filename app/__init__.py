@@ -166,22 +166,25 @@ def create():
 # for blogs you can make /blogs/blog ID
 # for blog editing you can make /blogs/blog ID/edit
 
+@app.route("/blog/<blog_id>")
 def display_blogs(blog_id):
-    rows = [
-        (1, 123, "This is a Title", "These are the contents ", 1, "Bob"),
-        (2, 321, "This is a Title For Blog 2",
-         "Lorem ipsum odor amet, consectetuer adipiscing elit. Montes iaculis auctor magnis sagittis maecenas egestas class velit. Hac odio erat tellus penatibus, nunc dis litora. Odio egestas est dignissim sodales nec tempor parturient massa. Class ultricies torquent himenaeos sit libero dignissim libero. Vel facilisi mollis morbi ad magna cursus sollicitudin fringilla. Vel pharetra interdum at varius integer habitasse. Molestie curabitur euismod in viverra blandit sociosqu id. Litora aptent volutpat posuere porttitor fringilla.",
-         2, "Joe")
-    ]
-    idx = blog_id
-    user = rows[0][5]
-    date = datetime.utcfromtimestamp(rows[0][1]).strftime('%Y-%m-%d %H:%M:%S')
-    title = rows[2]
-    text = rows[3]
-
-if __name__ == "__main__":
-    app.debug = True
-    app.run()
+    c.execute("""
+        SELECT entry.entry_id, entry.date, entry.title, entry.content, profile.id, profile.bio
+        FROM entry
+        JOIN blog ON entry.blog_id = blog.blog_id
+        JOIN profile ON blog.id = profile.id
+        WHERE entry.entry_id = ?
+    """, (blog_id,))
+    
+    row = c.fetchone()
+        
+    if row: #checks to veify it is fetched and there
+        user = row["bio"]  
+        date = datetime.strptime(entry["date"], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+        title = row["title"]
+        text = row["content"]
+        
+        return render_template("blogs.html", user=user, date=date, title=title, text=text)
 
 if __name__ == "__main__":
     app.debug = True
