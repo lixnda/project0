@@ -221,7 +221,7 @@ def create_entry(blog_id):
             VALUES (?, ?, ?, ?)
         """, (date, title, content, blog_id))
         db.commit() 
-        return redirect(f"/blogs/{blog_id}")
+        return redirect(f"/blog/{blog_id}")
 
     return render_template("create_entry.html", blog=blog_info) 
 # for blogs you can make /blogs/blog ID
@@ -231,21 +231,26 @@ def create_entry(blog_id):
 @app.route("/profile/blog/<blog_id>")
 def display_blogs(blog_id):
     c.execute("""
-        SELECT entry.date, entry.title, entry.content, blog_id
+        SELECT entry.date, entry.title, entry.content, blog.name
         FROM entry
         JOIN blog ON entry.blog_id = blog.blog_id
         WHERE blog.blog_id = ?
     """, (blog_id,))
 
     row = c.fetchone()
-
+    
+    user = "null"
+    date = 0
+    title = "null"
+    text = "null"
     if row:
         user = row[3]  # Fetching the author's id
         date = datetime.utcfromtimestamp(row[0]).strftime('%Y-%m-%d %H:%M:%S')  # Convert timestamp
         title = row[1]
         text = row[2]
 
-        return render_template("entries.html", user=user, date=date, title=title, text=text)
+    return render_template("entries.html", blog_id = blog_id, user=user, date=date, title=title, text=text)
+    
 
 if __name__ == "__main__":
     app.debug = True
