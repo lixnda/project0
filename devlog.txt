@@ -65,3 +65,6 @@ Fixed syntax and database issues for post request with blog creation.
 lindaZ -- 2024-11-06
 working login and registration page; added to database
 improved redirects between login
+
+markM -- 2024-11-07
+Implemented blog entries (not even my job but no one did it)
