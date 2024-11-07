@@ -158,7 +158,7 @@ def create():
         command = f"INSERT INTO blog(blog_name, blog_desc, name) VALUES(?,?,?)"
         cursor.execute(command, vals)
         db.commit()
-        redirect(f"/profile/name")
+        return redirect(f"/profile/name")
     return render_template("blogs.html")
 
 # for blogs you can make /blogs/blog ID
