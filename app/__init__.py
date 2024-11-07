@@ -231,11 +231,10 @@ def create_entry(blog_id):
 @app.route("/profile/blog/<blog_id>")
 def display_blogs(blog_id):
     c.execute("""
-        SELECT entry.entry_id, entry.date, entry.title, entry.content, profile.id, profile.bio
+        SELECT entry.entry_id, entry.date, entry.title, entry.content, blog.name, blog.blog_name
         FROM entry
         JOIN blog ON entry.blog_id = blog.blog_id
-        JOIN profile ON blog.id = profile.id
-        WHERE entry.entry_id = ?
+        WHERE blog.blog_id = ?
     """, (blog_id,))
 
     row = c.fetchone()
