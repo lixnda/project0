@@ -142,7 +142,7 @@ def follow(username):
     return redirect(request.referrer)
 
 # create blog here
-@app.route("/create", methods =['POST'])
+@app.route("/create", methods =['GET','POST'])
 def create():
     if "username" not in session:
         return redirect("/login")
