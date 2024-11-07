@@ -49,13 +49,15 @@ def home():
         return redirect(url_for('login'))
 
     query = """
-        SELECT entry.entry_id, entry.date, entry.title, entry.content, entry.blog_id, blog.blog_name
+        SELECT entry.entry_id, entry.date, entry.title, entry.content, entry.blog_id, blog.name
         FROM entry
         JOIN blog ON entry.blog_id = blog.blog_id
     """
 
     c.execute(query)
     rows = c.fetchall()  # [Post ID, UNIX TIMESTAMP, Title, Content, Blog ID, Author]
+    
+    # print(rows)
 
     # FOR TESTING
     # rows = [
