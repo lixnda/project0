@@ -210,11 +210,11 @@ def display_blogs(blog_id):
     
     row = c.fetchone()
         
-    if row: #checks to veify it is fetched and there
-        user = row["bio"]  
-        date = datetime.strptime(row["date"], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
-        title = row["title"]
-        text = row["content"]
+    if row:
+        user = row[4]  # Fetching the author's username
+        date = datetime.utcfromtimestamp(row[1]).strftime('%Y-%m-%d %H:%M:%S')  # Convert timestamp
+        title = row[2]
+        text = row[3]
         
         return render_template("entries.html", user=user, date=date, title=title, text=text)
 
