@@ -50,3 +50,9 @@ Both pages are integrated with database, however uses test data for now.
 
 lindaZ -- 2024-11-04
 working databases - used foreign keys to help create link between different tables
+
+duaB -- 2024-11-04
+Worked on formatting html and making blog viewing page
+
+markM -- 2024-11-06
+Improved formatting in index.html. Added references to other functionalities in home page.
