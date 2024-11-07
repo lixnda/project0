@@ -56,3 +56,4 @@ Worked on formatting html and making blog viewing page
 
 markM -- 2024-11-06
 Improved formatting in index.html. Added references to other functionalities in home page.
+Integrated home and profile page with new database format.
