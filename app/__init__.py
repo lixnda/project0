@@ -144,8 +144,17 @@ def follow(username):
 # create blog here
 @app.route("/create")
 def create():
-    return render_html("blogMaker.html")
-
+    if "username" not in session:
+        return redirect("/login")
+    if request.method == 'POST'
+        blog_id = cursor.lastrowid()
+        blog_name = request.form.get('name')
+        blog_desc = request.form.get('Description')
+        name = session['username']
+        vals = (blog_id, blog_name, blog_desc, name)
+        command = f"INSERT INTO blog VALUES(?,?,?,?)"
+        cursor.execute(command, vals)
+    return render_html("blogs.html")
 
 # for blogs you can make /blogs/blog ID
 # for blog editing you can make /blogs/blog ID/edit
