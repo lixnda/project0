@@ -200,7 +200,7 @@ def create():
 def create_entry(blog_id):
     if not "username" in session:
         return redirect("/login")
-    user = username["session"]
+    user = session["username"]
     # get blog information here
     c.execute("""
         SELECT blog_id, blog_name, description, name
@@ -228,6 +228,7 @@ def create_entry(blog_id):
 # for blog editing you can make /blogs/blog ID/edit
 
 @app.route("/blog/<blog_id>")
+@app.route("/profile/blog/<blog_id>")
 def display_blogs(blog_id):
     c.execute("""
         SELECT entry.entry_id, entry.date, entry.title, entry.content, profile.id, profile.bio
