@@ -14,7 +14,7 @@ c = db.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS logins(name TEXT PRIMARY KEY, password TEXT)")
 c.execute("CREATE TABLE IF NOT EXISTS profile(name TEXT PRIMARY KEY, followers INTEGER)")
-c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, name TEXT, FOREIGN KEY(name) REFERENCES profile(name))")
+c.execute("CREATE TABLE IF NOT EXISTS blog(blog_id INTEGER PRIMARY KEY, blog_name TEXT, blog_desc TEXT, name TEXT, FOREIGN KEY(name) REFERENCES profile(name))")
 c.execute("CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY, date INTEGER, title TEXT, content TEXT, blog_id INTEGER, FOREIGN KEY(blog_id) REFERENCES blog(blog_id))")
 
 """
@@ -142,19 +142,20 @@ def follow(username):
     return redirect(request.referrer)
 
 # create blog here
-@app.route("/create")
+@app.route("/create", methods =['POST'])
 def create():
     if "username" not in session:
         return redirect("/login")
     if request.method == 'POST'
-        blog_id = cursor.lastrowid()
         blog_name = request.form.get('name')
         blog_desc = request.form.get('Description')
         name = session['username']
-        vals = (blog_id, blog_name, blog_desc, name)
-        command = f"INSERT INTO blog VALUES(?,?,?,?)"
+        vals = (blog_name, blog_desc, name)
+        command = f"INSERT INTO blog(blog_name, blog_desc, name) VALUES(?,?,?)"
         cursor.execute(command, vals)
-    return render_html("blogs.html")
+        db.commit()
+        redirect(f"/profile/name")
+    return render_template("blogs.html")
 
 # for blogs you can make /blogs/blog ID
 # for blog editing you can make /blogs/blog ID/edit
