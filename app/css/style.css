@@ -1,0 +1,29 @@
+body {
+    background-color: rgb(255, 250, 232);
+   }
+
+  h1 {
+    text-shadow: 1px 1px 2px black;
+     color: #427068;
+     font-size: 100px;
+     font-weight: 900;
+     font-family: 'Poppins', sans-serif;
+     text-align: center;
+     margin-left: -200px;
+     padding-top: 45px;
+     padding-bottom: 20px;
+     margin-top: 0px;
+     padding-right: 50px;
+     animation-name: slide_title;
+     animation-duration: 1.5s;
+     
+     @keyframes slide_title {
+        0% {
+          margin-left: -1000px
+      }
+        100% {
+          margin-left: -200px;
+        }
+   
+      }
+   }

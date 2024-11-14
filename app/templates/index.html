@@ -5,13 +5,106 @@
 		<meta name="viewport" content="width=device-width">
 		<title>Boaa Blog</title>
 		<link href="../static/index_style.css" rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/d78a9b3388.js" crossorigin="anonymous"></script> 
+
+          <!-- Link the webpage's stylesheet -->
+           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+           <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 	</head>
+	<style>
+		body {
+		background-color: rgb(255, 250, 232);
+		font-family: 'Poppins', sans-serif;
+		text-align: center;
+	   }
+	
+	  h1 {
+		text-shadow: 1px 1px 2px black;
+		 color: #427068;
+		 font-size: 100px;
+		 font-weight: 900;
+		 font-family: 'Poppins', sans-serif;
+		 text-align: center;
+		 padding-top: 25px;
+		 padding-bottom: -40px;
+		 margin-top: 0px;
+		 animation-name: slide_title;
+		 animation-duration: 1.5s;
+		 
+	   }
+		@keyframes slide_title {
+		 0% {
+		   margin-left: -1000px
+	   }
+		 100% {
+		  text-align: center;
+		 }
+		}
+
+		h5 {
+			font-size: 20px;
+		}
+		h3 {
+		text-shadow: 1px 1px 2px black;
+		 color: #427068;
+		 font-size: 50px;
+		 font-weight: 900;
+		 font-family: 'Poppins', sans-serif;
+		 text-align: center;
+		 padding-top: 25px;
+		 padding-bottom: -40px;
+		 margin-top: 0px;
+		 animation-name: slide_title;
+		 animation-duration: 1.5s;
+		 
+	   }
+
+	  form {
+		width: 250px;
+		margin: auto;
+		padding: 20px;
+		border: 2px solid #427068;
+		border-radius: 10px;
+		background-color: #fff;
+		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+	  }
+	
+	  label {
+		font-weight: 600;
+		color: #427068;
+	  }
+	
+	
+	  button {
+		width: 100%;
+		padding: 12px;
+		margin-top:20px;
+		font-size: 16px;
+		color: white;
+		background-color: #427068;
+		border-radius: 5px;
+		font-weight: 600;
+		transition: background-color 0.3s ease;
+	  }
+	
+	  button:hover {
+		background-color: #365b4f;
+	  }
+	
+	  .blah {
+		display: block;
+		justify-content: center;
+	  }
+	
+	 
+	
+	  </style>
 	<div>
 		<h1>
 			<center> Welcome to Boaa Blog! </center>
 		</h1>
 		
-		<h3>
+		<h5>
 			<center>
 				{{login_info}}
 				<a href = {{login_link}} >here</a>.
@@ -24,7 +117,7 @@
                     </form>
                 {% endif %}
 			</center>
-		</h3>
+		</h5>
 		
 		{% if 'logout' in login_info %}
 		<div class="create">
@@ -38,12 +131,12 @@
 			Recently Updated Posts:
 		</h2>
         {% for post in posts %}
-            <h1>
-                Post {{ post[0] }}: <a href = blog/{{ post[5] }}>{{post[3]}}</a> in {{ post[7] }}
-            </h1>
             <h3>
-                By {{ post[6] }} on {{ post[2] }}
+                Post {{ post[0] }}: <a href = blog/{{ post[5] }}>{{post[3]}}</a> in {{ post[7] }}
             </h3>
+            <h5>
+                By {{ post[6] }} on {{ post[2] }}
+            </h5>
             <div class="contents">
                 {{ post[4] }}
             </div>

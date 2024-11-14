@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Boaa Blog</title>
+		<link href="../static/index_style.css" rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/d78a9b3388.js" crossorigin="anonymous"></script> 
+
+          <!-- Link the webpage's stylesheet -->
+           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+           <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+	</head>
+	<style>
+		body {
+		background-color: rgb(255, 250, 232);
+		font-family: 'Poppins', sans-serif;
+		text-align: center;
+	   }
+	
+	  h2 {
+		text-shadow: 1px 1px 2px black;
+		 color: #427068;
+		 font-size: 60px;
+		 font-weight: 900;
+		 font-family: 'Poppins', sans-serif;
+		 text-align: center;
+		 padding-top: 25px;
+		 padding-bottom: -40px;
+		 margin-top: 0px;
+		 animation-name: slide_title;
+		 animation-duration: 1.5s;
+		 
+	   }
+		@keyframes slide_title {
+		 0% {
+		   margin-left: -1000px
+	   }
+		 100% {
+		  text-align: center;
+		 }
+		}
+	
+	  form {
+		width: 700px;
+		margin: auto;
+		padding: 20px;
+		border: 2px solid #427068;
+		border-radius: 10px;
+		background-color: #fff;
+		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+	  }
+	
+	  label {
+		font-weight: 600;
+		color: #427068;
+        font-size: 30px;
+	  }
+	
+	
+	  button {
+		width: 100%;
+		padding: 12px;
+		margin-top:20px;
+		font-size: 16px;
+		color: white;
+		background-color: #427068;
+		border-radius: 5px;
+		font-weight: 600;
+		transition: background-color 0.3s ease;
+	  }
+	
+	  button:hover {
+		background-color: #365b4f;
+	  }
+	
+	  .blah {
+		display: block;
+		justify-content: center;
+	  }
+	
+	 
+	
+	  </style>
     <title>Create New Entry</title>
 </head>
 <body>
-    <h1>Create a New Entry for "{{ blog[1] }}"</h1>
+    <h2>Create a New Entry for "{{ blog[1] }}"</h2>
     <form method="POST">
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" placeholder="Enter entry title" required><br><br>
