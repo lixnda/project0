@@ -1,8 +1,3 @@
-"""
-This script runs the application using a development server.
-It contains the definition of routes and views for the application.
-"""
-
 from flask import Flask, render_template, request, redirect, url_for,g,session
 import sqlite3
 import os
@@ -247,14 +242,6 @@ def delete_blog(blog_id):
     else: 
         return render_template("login.html")    
 
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
 if __name__ == '__main__':
     import os
     HOST = os.environ.get('SERVER_HOST', 'localhost')
