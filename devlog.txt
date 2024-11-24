@@ -66,5 +66,10 @@ lindaZ -- 2024-11-06
 working login and registration page; added to database
 improved redirects between login
 
+ankitaS -- 2024-11-06
+worked om display.html and display blog function
+improved redirects between edit and view blog
+css
+
 markM -- 2024-11-07
 Implemented blog entries (not even my job but no one did it)
